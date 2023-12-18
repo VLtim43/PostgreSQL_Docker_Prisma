@@ -1,15 +1,80 @@
-# postgresql_docker_prisma
+# Project Template - PostgreSQL, Docker, Prisma, and Bun
 
-To install dependencies:
+This README outlines the setup process for a basic project using PostgreSQL, Docker, Prisma, and Bun.
+
+## Local Setup
+
+### Prerequisites
+
+- Ensure you have [Bun](https://bun.sh/) and [Docker](https://www.docker.com/) installed on your machine.
+
+### Installation & Setup
+
+#### Step 1: Install Dependencies
+
+Run the following command to install project dependencies:
 
 ```bash
 bun install
 ```
 
-To run:
+#### Step 2: Database Setup
+
+Set up a PostgreSQL database. You can do this either manually or using Docker.
+
+##### Option 1: Manual Setup
+
+Run a PostgreSQL instance:
 
 ```bash
-bun run index.ts
+docker run -d   --name postgres   -e POSTGRES_PASSWORD=postgres   -p 5533:5432   postgres:latest
 ```
 
-This project was created using `bun init` in bun v1.0.15. [Bun](https://bun.sh) is a fast all-in-one JavaScript runtime.
+Then, access the database using `psql` and create the required table:
+
+```sql
+CREATE TABLE todo (
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    done BOOLEAN NOT NULL,
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+    edited_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
+);
+```
+
+##### Option 2: Using Docker
+
+If using Docker Compose, build and run your containers:
+
+```bash
+docker-compose up --build
+```
+
+Then, access the PostgreSQL container:
+
+```bash
+docker exec -it <postgres_container_name> bash
+```
+
+Inside the container, create the required table using the same `CREATE TABLE` command as above.
+
+#### Step 3: Prisma Migrations
+
+Generate and run Prisma migrations to sync your database schema:
+
+```bash
+npx prisma migrate dev
+```
+
+### Running the Application
+
+After setting up the database and completing the migrations, start the application:
+
+```bash
+bun start
+```
+
+## Additional Notes
+
+- Ensure the `DATABASE_URL` in your environment matches the database setup.
+- You can modify the database schema using the Prisma schema file and regenerate migrations as needed.
