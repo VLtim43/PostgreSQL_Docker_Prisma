@@ -6,6 +6,7 @@
     "bun-types": "latest"
   },
   "scripts": {
+    "start": "bun run src/index.ts",
     "dev": "bun run src/index.ts"
   },
   "peerDependencies": {
