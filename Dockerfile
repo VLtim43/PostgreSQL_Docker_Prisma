@@ -1,10 +1,15 @@
 FROM oven/bun
 
-COPY bun.lockb . 
+WORKDIR /app
+
+COPY bun.lockb .
 COPY package.json .
 
-RUN bun install 
+RUN bun install
+COPY . . 
+EXPOSE 8080
+RUN bunx prisma generate
+RUN bunx prisma migrate dev
 
-COPY src ./src 
 
-CMD [ "bun", "start" ]
+CMD ["bun", "start"]

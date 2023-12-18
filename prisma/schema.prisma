@@ -1,0 +1,17 @@
+generator client {
+  provider      = "prisma-client-js"
+  binaryTargets = ["native", "debian-openssl-1.1.x"]
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model todo {
+  id         Int      @id @default(autoincrement())
+  name       String
+  done       Boolean
+  created_at DateTime @default(now())
+  edited_at  DateTime @updatedAt
+}
