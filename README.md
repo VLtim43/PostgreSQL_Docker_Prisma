@@ -40,6 +40,9 @@ Then, access the database using `psql` and create the required table:
 ```
 
 ```sql
+-- Enable uuid-ossp extension
+CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
+
 CREATE TABLE todo (
     id SERIAL PRIMARY KEY,
     name VARCHAR(255) NOT NULL,
