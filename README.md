@@ -62,16 +62,34 @@ Then, access the PostgreSQL container:
 
 ```bash
 docker exec -it <postgres_container_name> bash
+
 ```
 
-Inside the container, create the required table using the same `CREATE TABLE` command as above.
+Run a PostgreSQL instance:
+
+```bash
+docker run -d \
+  --name dev \
+  -e POSTGRES_PASSWORD=postgres \
+  -p 5533:5432 \
+  postgres:latest
+
+```
+
+Follow the same steps as above
+
+#### Run the migrations
+
+```
+bunx prisma migrate dev
+```
 
 ### Running the Application
 
 After setting up the database and completing the migrations, start the application:
 
 ```bash
-bun start
+bun run dev
 ```
 
 ## Additional Notes
