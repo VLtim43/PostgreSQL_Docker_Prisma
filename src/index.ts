@@ -6,6 +6,10 @@ const elysia = new Elysia();
 
 elysia.get("/", () => "Hello World from Elysia 🦊!");
 
+elysia.get("/todos", () => {
+  return prisma.todo.findMany();
+});
+
 elysia.post(
   "/todo",
   async ({ body }) =>
@@ -22,10 +26,6 @@ elysia.post(
     }),
   }
 );
-
-elysia.get("/todos", () => {
-  return prisma.todo.findMany();
-});
 
 elysia.listen(8080);
 

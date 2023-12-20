@@ -20,17 +20,24 @@ bun install
 
 #### Step 2: Database Setup
 
-Set up a PostgreSQL database. You can do this either manually or using Docker.
-
-##### Option 1: Manual Setup
+##### Option 1: Local
 
 Run a PostgreSQL instance:
 
 ```bash
-docker run -d   --name postgres   -e POSTGRES_PASSWORD=postgres   -p 5533:5432   postgres:latest
+docker run -d \
+  --name dev \
+  -e POSTGRES_PASSWORD=postgres \
+  -p 5534:5432 \
+  postgres:latest
+
 ```
 
 Then, access the database using `psql` and create the required table:
+
+```
+ docker exec -it dev  psql -U postgres
+```
 
 ```sql
 CREATE TABLE todo (
@@ -43,8 +50,6 @@ CREATE TABLE todo (
 ```
 
 ##### Option 2: Using Docker
-
-If using Docker Compose, build and run your containers:
 
 ```bash
 docker-compose up --build
