@@ -63,14 +63,6 @@ docker exec -it <postgres_container_name> bash
 
 Inside the container, create the required table using the same `CREATE TABLE` command as above.
 
-#### Step 3: Prisma Migrations
-
-Generate and run Prisma migrations to sync your database schema:
-
-```bash
-npx prisma migrate dev
-```
-
 ### Running the Application
 
 After setting up the database and completing the migrations, start the application:
