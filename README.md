@@ -61,18 +61,7 @@ docker-compose up --build
 Then, access the PostgreSQL container:
 
 ```bash
-docker exec -it <postgres_container_name> bash
-
-```
-
-Run a PostgreSQL instance:
-
-```bash
-docker run -d \
-  --name dev \
-  -e POSTGRES_PASSWORD=postgres \
-  -p 5533:5432 \
-  postgres:latest
+ docker exec -it postgresql_docker_prisma_db_1  psql -U postgres
 
 ```
 
@@ -96,3 +85,7 @@ bun run dev
 
 - Ensure the `DATABASE_URL` in your environment matches the database setup.
 - You can modify the database schema using the Prisma schema file and regenerate migrations as needed.
+
+curl -X POST http://localhost:8080/todo \
+-H "Content-Type: application/json" \
+-d '{"name": "Buy groceries", "done": false}'
