@@ -15,13 +15,13 @@ elysia.post(
   async ({ body }) =>
     prisma.todo.create({
       data: {
-        name: body.username,
+        name: body.name,
         done: body.done,
       },
     }),
   {
     body: elysiaType.Object({
-      username: elysiaType.String(),
+      name: elysiaType.String(),
       done: elysiaType.Boolean(),
     }),
   }
