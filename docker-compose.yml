@@ -8,10 +8,10 @@ services:
     environment:
       POSTGRES_USER: "postgres"
       POSTGRES_PASSWORD: "postgres"
-      POSTGRES_DB: "bun_todos"
+      POSTGRES_DB: "todos"
   server:
     build: .
     ports:
       - "8080:8080"
     environment:
-      DATABASE_URL: "postgresql://postgres:postgres@db:5432/bun_todos"
+      DATABASE_URL: "postgresql://postgres:postgres@db:5432/todos?schema=public"

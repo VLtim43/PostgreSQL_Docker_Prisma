@@ -1,32 +1,26 @@
+import express from "express";
 import { PrismaClient } from "@prisma/client";
-import { Elysia, t as elysiaType } from "elysia";
+
+const app = express();
+const PORT = 8080;
 
 const prisma = new PrismaClient();
-const elysia = new Elysia();
 
-elysia.get("/", () => "Hello World from Elysia 🦊!");
+app.use(express.json());
 
-elysia.get("/todos", () => {
-  return prisma.todo.findMany();
+app.get("/", (req, res) => {
+  res.json("Hello World from Express");
 });
 
-elysia.post(
-  "/todo",
-  async ({ body }) =>
-    prisma.todo.create({
-      data: {
-        name: body.name,
-        done: body.done,
-      },
-    }),
-  {
-    body: elysiaType.Object({
-      name: elysiaType.String(),
-      done: elysiaType.Boolean(),
-    }),
+app.get("/users", async (req, res) => {
+  try {
+    const users = await prisma.user.findMany();
+    res.json(users);
+  } catch (err) {
+    console.log(err);
   }
-);
+});
 
-elysia.listen(8080);
-
-console.log(`🦊 Elysia is running at http://localhost:8080`);
+app.listen(PORT, () => {
+  console.log(`Express is running at http://localhost:8080`);
+});
