@@ -1,6 +1,5 @@
 generator client {
-  provider      = "prisma-client-js"
-  binaryTargets = ["native", "debian-openssl-1.1.x"]
+  provider = "prisma-client-js"
 }
 
 datasource db {
@@ -8,10 +7,8 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model todo {
-  id         String   @id @default(uuid())
-  name       String
-  done       Boolean
-  created_at DateTime @default(now())
-  edited_at  DateTime @updatedAt
+model User {
+  id    Int     @id @default(autoincrement())
+  email String  @unique
+  name  String?
 }
